@@ -56,22 +56,23 @@ public class TodoController {
     @PatchMapping("{id}")
     public ResponseEntity<TodoResponse> update(@PathVariable Long id,  @RequestBody TodoRequest request){
         System.out.println("UPDATE");
-        //여기까지 작업함
+        TodoEntity result = this.todoService.updateById(id, request);
 
-        return null;
+        return ResponseEntity.ok(new TodoResponse(result));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteOne(){
+    public ResponseEntity<?> deleteOne(@PathVariable Long id){
         System.out.println("DELETE ONE");
 
-        return null;
+        this.todoService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
     public ResponseEntity<?> deleteAll(){
         System.out.println("DELETE ALL");
-
-        return null;
+        this.todoService.deleteAll();
+        return ResponseEntity.ok().build();
     }
 }
